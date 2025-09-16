@@ -1,1560 +1,1293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farhan Sites - Professional Social Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #3b82f6;
-            --secondary-color: #8b5cf6;
-            --accent-color: #06b6d4;
-            --success-color: #10b981;
-            --danger-color: #ef4444;
-            --warning-color: #f59e0b;
-            --dark-color: #1f2937;
-            --light-color: #f8fafc;
-            --border-color: #e2e8f0;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            line-height: 1.6;
-            color: var(--text-primary);
-        }
-
-        /* Login Page Styles */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: var(--gradient-primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx=".66" cy=".35" r=".5"><stop offset="0" stop-color="rgba(255,255,255,0.1)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><rect width="100" height="20" fill="url(%23a)"/></svg>') 0 0/100px 20px;
-            opacity: 0.3;
-        }
-
-        .login-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 3rem;
-            border-radius: 24px;
-            box-shadow: var(--shadow-xl);
-            text-align: center;
-            min-width: 450px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-box::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient-primary);
-            border-radius: 26px;
-            z-index: -1;
-            opacity: 0.1;
-        }
-
-        .login-header {
-            margin-bottom: 2rem;
-        }
-
-        .login-header h2 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .login-header p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-            position: relative;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            padding-left: 3rem;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-            color: var(--text-primary);
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 2.25rem;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .login-btn:hover::before {
-            left: 100%;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .error-message {
-            color: var(--danger-color);
-            margin-top: 1rem;
-            display: none;
-            font-weight: 500;
-            padding: 0.75rem;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid var(--danger-color);
-        }
-
-        /* Main Site Styles */
-        .main-container {
-            display: none;
-            background: var(--light-color);
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 1.5rem 0;
-            box-shadow: var(--shadow-md);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .welcome-text {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .user-name {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            padding: 0.5rem 1rem;
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-        }
-
-        .main-content {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        /* Post Creation Form */
-        .post-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .post-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .post-form-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .post-form-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient-accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.25rem;
-        }
-
-        .post-form h3 {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .form-group textarea,
-        .form-group input[type="file"] {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-group textarea:focus,
-        .form-group input[type="file"]:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-input-custom {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: var(--light-color);
-        }
-
-        .file-input-custom:hover {
-            border-color: var(--primary-color);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .file-input-custom i {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .post-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .post-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .post-btn:hover::before {
-            left: 100%;
-        }
-
-        .post-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Posts Display */
-        .posts-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .post {
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            position: relative;
-        }
-
-        .post:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .post-header {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .post-avatar {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .post-author-info {
-            flex: 1;
-        }
-
-        .post-author {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .post-date {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .post-content {
-            padding: 2rem;
-        }
-
-        .post-caption {
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-            color: var(--text-primary);
-            font-size: 1.05rem;
-        }
-
-        .post-media {
-            margin-top: 1.5rem;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .post-image,
-        .post-video {
-            width: 100%;
-            border-radius: 16px;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease;
-        }
-
-        .post-image:hover,
-        .post-video:hover {
-            transform: scale(1.02);
-        }
-
-        .post-video {
-            max-height: 500px;
-        }
-
-        /* Post Interaction Buttons */
-        .post-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: rgba(248, 250, 252, 0.5);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: none;
-            border: none;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: currentColor;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .action-btn:hover::before {
-            opacity: 0.1;
-        }
-
-        .like-btn {
-            color: var(--text-secondary);
-        }
-
-        .like-btn.liked {
-            color: #e91e63;
-            background: rgba(233, 30, 99, 0.1);
-        }
-
-        .like-btn:hover {
-            color: #e91e63;
-        }
-
-        .comment-btn {
-            color: var(--primary-color);
-        }
-
-        .comment-btn:hover {
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .share-btn {
-            color: var(--success-color);
-        }
-
-        .share-btn:hover {
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .delete-btn {
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .delete-btn:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-        }
-
-        /* Comments Section */
-        .comments-section {
-            background: white;
-            display: none;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .comments-section.show {
-            display: block;
-        }
-
-        .comment-form {
-            padding: 1.5rem 2rem;
-            background: var(--light-color);
-        }
-
-        .comment-input {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .comment-input input {
-            flex: 1;
-            padding: 0.75rem 1.25rem;
-            border: 2px solid var(--border-color);
-            border-radius: 25px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .comment-input input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .comment-submit {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .comment-submit:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-        }
-
-        .comments-list {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 1rem 2rem 2rem;
-        }
-
-        .comment {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: var(--light-color);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .comment:hover {
-            transform: translateX(4px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .comment-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .comment-content {
-            flex: 1;
-        }
-
-        .comment-author {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .comment-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-
-        .comment-date {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .no-posts {
-            text-align: center;
-            color: var(--text-secondary);
-            padding: 4rem 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
-        }
-
-        .no-posts i {
-            font-size: 4rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .no-posts h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        /* Share Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid var(--border-color);
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.show .modal-content {
-            transform: scale(1);
-        }
-
-        .modal h3 {
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .share-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .share-option {
-            padding: 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .share-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .share-option:hover::before {
-            left: 100%;
-        }
-
-        .share-option:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .share-option i {
-            font-size: 1.25rem;
-        }
-
-        .whatsapp { color: #25d366; }
-        .facebook { color: #1877f2; }
-        .twitter { color: #1da1f2; }
-        .copy-link { color: var(--primary-color); }
-
-        .close-modal {
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 1.5rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .close-modal:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .login-box {
-                min-width: 90%;
-                padding: 2rem 1.5rem;
-            }
-
-            .welcome-text {
-                font-size: 1.5rem;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .main-content {
-                padding: 0 1rem;
-            }
-
-            .post-form,
-            .post {
-                margin: 0;
-            }
-
-            .action-buttons {
-                gap: 1rem;
-            }
-
-            .action-btn {
-                font-size: 0.8rem;
-                padding: 0.5rem 0.75rem;
-            }
-
-            .post-header {
-                padding: 1rem 1.5rem;
-            }
-
-            .post-content {
-                padding: 1.5rem;
-            }
-
-            .post-actions {
-                padding: 1rem 1.5rem;
-            }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Fade in animation */
-        .fade-in {
-            animation: fadeIn 0.6s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Success message */
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success-color);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            z-index: 1001;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-        }
-
-        .success-message.show {
-            transform: translateX(0);
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Professional Posting Website</title>
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fdfdfd;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  a {
+    color: #0c71c3;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: #0c71c3;
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    user-select: none;
+  }
+  #left-nav, #right-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  #left-nav button,
+  #right-nav button {
+    font-size: 14px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.25s ease;
+    user-select: none;
+  }
+  #left-nav button:hover,
+  #right-nav button:hover {
+    background-color: rgba(255 255 255 / 0.25);
+  }
+  #left-nav button.active {
+    background-color: rgba(255 255 255 / 0.40);
+  }
+
+  #main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  #posts-section {
+    flex: 3;
+    max-width: 700px;
+    margin-right: 20px;
+  }
+  #posts-section h2 {
+    margin-bottom: 12px;
+    border-bottom: 2px solid #0c71c3;
+    padding-bottom: 6px;
+  }
+  .post {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 0.05);
+    margin-bottom: 18px;
+    padding: 14px 18px 12px 18px;
+    position: relative;
+  }
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 8px;
+    user-select: text;
+  }
+  .post-title-date {
+    user-select: text;
+  }
+  .caption {
+    font-size: 15px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+    user-select: text;
+  }
+  .post-media {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+    max-height: 380px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+  }
+  .post-media img,
+  .post-media video {
+    max-width: 100%;
+    max-height: 380px;
+    display: block;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .post-footer {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 14px;
+    user-select: none;
+  }
+  .post-footer button,
+   .post-footer .copy-link {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #0c71c3;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: background-color 0.25s ease;
+  }
+  .post-footer button:hover,
+   .post-footer .copy-link:hover {
+    background-color: rgba(12 113 195 / 0.1);
+  }
+  .post-footer button:disabled {
+    cursor: default;
+    color: gray;
+  }
+  .like-count,
+  .comment-count,
+  .share-count {
+    user-select: text;
+  }
+  .three-dots {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    color: #0c71c3;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .three-dots:hover {
+    background-color: rgba(12 113 195 / 0.15);
+  }
+  .comments-container {
+    margin-top: 10px;
+    max-height: 120px;
+    overflow-y: auto;
+    background: #f4f7fb;
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+  .comment {
+    border-bottom: 1px solid #ddd;
+    padding: 6px 0;
+    font-size: 13px;
+    word-break: break-word;
+  }
+  .comment:last-child {
+    border-bottom: none;
+  }
+  #sidebar {
+    flex: 1.2;
+    max-width: 350px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 14px rgb(0 0 0 / 0.06);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+  }
+  #sidebar > h3 {
+    border-bottom: 2px solid #0c71c3;
+    padding-bottom: 6px;
+  }
+  #login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  #login-form label {
+    font-weight: 600;
+  }
+  #login-form input[type=email],
+  #login-form input[type=password] {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1.8px solid #bbb;
+    font-size: 15px;
+    outline-offset: 2px;
+    outline-color: #0c71c3;
+  }
+  #login-form input:focus {
+    border-color: #0c71c3;
+  }
+  #login-form button {
+    background-color: #0c71c3;
+    border: none;
+    padding: 10px 14px;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  #login-form button:hover {
+    background-color: #09589e;
+  }
+  #login-error {
+    color: crimson;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  #account-info {
+    font-size: 14px;
+  }
+  #logout-button,
+  #logout-button-sidebar {
+    margin-top: 12px;
+    align-self: flex-start;
+    background: #e03c3c;
+    color: white;
+  }
+  #account-stats {
+    font-size: 14px;
+  }
+  #settings-section label,
+  #post-editor-section label,
+  #privacy-section label {
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+  }
+  #settings-section input[type=text],
+  #settings-section input[type=url],
+  #post-editor input[type=text],
+  #post-editor textarea,
+  #post-editor input[type=url],
+  #privacy-section select {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1.6px solid #ccc;
+    margin-top: 4px;
+    font-size: 14px;
+  }
+  #settings-section button,
+  #post-editor button {
+    margin-top: 12px;
+    background-color: #0c71c3;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  #settings-section button:hover,
+  #post-editor button:hover {
+    background-color: #09589e;
+  }
+  #post-editor {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
+  #post-editor textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+  }
+  #post-editor input[type=file] {
+    font-size: 14px;
+  }
+  #edit-modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.58);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  #edit-modal.active {
+    display: flex;
+  }
+  #edit-modal .modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 360px;
+    max-width: 90vw;
+    padding: 20px 24px 24px 24px;
+    box-shadow: 0 0 28px rgba(0,0,0,0.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  #edit-modal h3 {
+    margin: 0 0 12px 0;
+  }
+  #edit-modal label {
+    font-weight: 600;
+  }
+  #edit-modal input[type=text],
+  #edit-modal textarea,
+  #edit-modal input[type=date],
+  #edit-modal input[type=url],
+  #edit-modal input[type=file] {
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: 1.8px solid #aaa;
+    font-size: 14px;
+  }
+  #edit-modal textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  #edit-modal button {
+    background-color: #0c71c3;
+    border: none;
+    padding: 10px 16px;
+    color: white;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    margin-top: 12px;
+  }
+  #edit-modal button:hover {
+    background-color: #09589e;
+  }
+  #edit-modal .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-size: 23px;
+    cursor: pointer;
+    color: #555;
+    font-weight: 700;
+    user-select: none;
+  }
+  #edit-modal .close-btn:hover {
+    color: #000;
+  }
+  #notification-bar {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0c71c3;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 0 14px rgba(12,113,195,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    user-select: none;
+    z-index: 1050;
+    max-width: 90vw;
+    text-align: center;
+    font-size: 15px;
+  }
+  #notification-bar.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  footer {
+    background: #0c71c3;
+    color: white;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: auto;
+  }
+  footer a {
+    color: #aecfff;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .privacy-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 13px;
+    margin-left: auto;
+  }
+  /* Scrollbar styling for comments */
+  .comments-container::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+  .comments-container::-webkit-scrollbar-thumb {
+    background-color: #0c71c3aa;
+    border-radius: 4px;
+  }
+  .comments-container::-webkit-scrollbar-track {
+    background: #d9e6f11c;
+  }
+  @media (max-width: 860px) {
+    #main-container {
+      flex-direction: column;
+      padding: 20px 12px 80px 12px;
+    }
+    #posts-section {
+      margin-right: 0;
+      max-width: 100%;
+    }
+    #sidebar {
+      max-width: 100%;
+      margin-top: 30px;
+    }
+  }
+</style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="login-container">
-        <div class="login-box fade-in">
-            <div class="login-header">
-                <h2><i class="fas fa-lock"></i> Login</h2>
-                <p>Access your professional social platform</p>
-            </div>
-            <form id="loginForm">
-                <div class="input-group">
-                    <label for="email">Email Address</label>
-                    <i class="fas fa-envelope input-icon"></i>
-                    <input type="email" id="email" placeholder="Enter your email address" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <i class="fas fa-lock input-icon"></i>
-                    <input type="password" id="password" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In
-                </button>
-                <div id="errorMessage" class="error-message">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Invalid credentials! Please try again.
-                </div>
-            </form>
-        </div>
+<header>
+  <nav id="left-nav" aria-label="Main navigation">
+    <button id="nav-home" class="active" aria-current="page">Home</button>
+    <button id="nav-timeline">Timeline</button>
+    <button id="nav-settings">Settings</button>
+  </nav>
+  <nav id="right-nav" aria-label="User actions">
+    <button id="login-button">Login</button>
+    <button id="logout-button" class="hidden">Logout</button>
+  </nav>
+</header>
+<main id="main-container" aria-live="polite" aria-relevant="additions removals">
+  <section id="posts-section" aria-label="Posts" role="region">
+    <h2>All Posts</h2>
+    <div id="posts-list" aria-live="polite" aria-live="assertive"></div>
+  </section>
+  <aside id="sidebar" aria-label="Sidebar">
+    <!-- Login form -->
+    <form id="login-form" novalidate>
+      <h3>Login</h3>
+      <label for="email-input">Email</label>
+      <input type="email" id="email-input" placeholder="Enter email" autocomplete="username" required />
+      <label for="password-input">Password</label>
+      <input type="password" id="password-input" placeholder="Enter password" autocomplete="current-password" required />
+      <button type="submit">Login</button>
+      <p id="login-error" role="alert" aria-live="assertive"></p>
+    </form>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" hidden>
+      <h3>Account Info</h3>
+      <div id="account-info"></div>
+      <div id="account-stats"><strong>Today's Visits:</strong> <span id="visit-count">0</span></div>
+      <button id="logout-button-sidebar">Logout</button>
+
+      <section id="post-editor-section" aria-label="Create New Post">
+        <h3>Create New Post</h3>
+        <form id="post-editor" novalidate>
+          <label for="post-title">Title</label>
+          <input type="text" id="post-title" placeholder="Post Title" required aria-required="true"/>
+          <label for="post-caption">Caption / Text</label>
+          <textarea id="post-caption" placeholder="Description (optional)"></textarea>
+          <label for="post-file">Choose Photo or Video</label>
+          <input type="file" id="post-file" accept="image/*,video/*" />
+          <label for="post-redirect-link">Redirect Link (optional)</label>
+          <input type="url" id="post-redirect-link" placeholder="Optional redirect URL" />
+          <label for="post-privacy">Privacy</label>
+          <select id="post-privacy" aria-label="Post Privacy Setting">
+            <option value="public" selected>Public (Visible to all)</option>
+            <option value="private">Private (Only visible to me)</option>
+          </select>
+          <button type="submit">Create Post</button>
+        </form>
+      </section>
+
+      <section id="settings-section" aria-label="Account Settings">
+        <h3>Settings</h3>
+        <label for="setting-name">Change Name</label>
+        <input type="text" id="setting-name" placeholder="Full Name" />
+        <label for="setting-profile-pic">Change Profile Picture URL</label>
+        <input type="url" id="setting-profile-pic" placeholder="Profile Picture URL" />
+        <button id="save-settings">Save Settings</button>
+      </section>
     </div>
+  </aside>
+</main>
 
-    <!-- Main Site -->
-    <div id="mainSite" class="main-container">
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">F</div>
-                    <h1 class="welcome-text">FARHAN SITES</h1>
-                </div>
-                <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">F</div>
-                    <div>
-                        <div class="user-name" id="userEmail"></div>
-                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Professional Account</div>
-                    </div>
-                    <button id="logoutBtn" class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </button>
-                </div>
-            </div>
-        </header>
+<!-- Edit Post Modal -->
+<div id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title" aria-describedby="edit-modal-desc" tabindex="-1">
+  <div class="modal-content">
+    <button class="close-btn" aria-label="Close">&times;</button>
+    <h3 id="edit-modal-title">Edit Post</h3>
+    <form id="edit-post-form" novalidate>
+      <label for="edit-post-title">Title</label>
+      <input type="text" id="edit-post-title" required aria-required="true" />
+      <label for="edit-post-caption">Caption / Text</label>
+      <textarea id="edit-post-caption"></textarea>
+      <label for="edit-post-file">Change Photo / Video (optional)</label>
+      <input type="file" id="edit-post-file" accept="image/*,video/*" />
+      <label for="edit-post-redirect-link">Redirect Link (optional)</label>
+      <input type="url" id="edit-post-redirect-link" />
+      <label for="edit-post-privacy">Privacy</label>
+      <select id="edit-post-privacy" aria-label="Edit Post Privacy Setting">
+        <option value="public">Public (Visible to all)</option>
+        <option value="private">Private (Only visible to me)</option>
+      </select>
+      <label for="edit-post-date">Post Date</label>
+      <input type="date" id="edit-post-date" required aria-required="true" />
+      <button type="submit">Save</button>
+      <button type="button" id="delete-post-btn" style="background:#e03c3c;margin-top:6px;">Delete Post</button>
+    </form>
+  </div>
+</div>
 
-        <main class="main-content">
-            <!-- Post Creation Form -->
-            <div class="post-form fade-in">
-                <div class="post-form-header">
-                    <div class="post-form-icon">
-                        <i class="fas fa-edit"></i>
-                    </div>
-                    <div>
-                        <h3>Create New Post</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Share your thoughts with the world</p>
-                    </div>
-                </div>
-                <form id="postForm">
-                    <div class="form-group">
-                        <label for="caption"><i class="fas fa-pen"></i> Caption</label>
-                        <textarea id="caption" placeholder="What's on your mind? Share your thoughts..." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="imageFile"><i class="fas fa-image"></i> Image</label>
-                        <div class="file-input-wrapper">
-                            <input type="file" id="imageFile" accept="image/*" style="display: none;">
-                            <div class="file-input-custom" onclick="document.getElementById('imageFile').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <span>Choose Image File</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="videoFile"><i class="fas fa-video"></i> Video</label>
-                        <div class="file-input-wrapper">
-                            <input type="file" id="videoFile" accept="video/*" style="display: none;">
-                            <div class="file-input-custom" onclick="document.getElementById('videoFile').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <span>Choose Video File</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="post-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Publish Post
-                    </button>
-                </form>
-            </div>
+<!-- Notification Bar -->
+<div id="notification-bar" role="alert" aria-live="polite"></div>
 
-            <!-- Posts Display -->
-            <div id="postsContainer" class="posts-container">
-                <div class="no-posts">
-                    <i class="fas fa-images"></i>
-                    <h3>No Posts Yet</h3>
-                    <p>Start sharing your amazing content with the world!</p>
-                </div>
-            </div>
-        </main>
-    </div>
+<footer>
+  <p>Contact: <a href="mailto:999farhanislam@gmail.com" target="_blank" rel="noopener noreferrer">999farhanislam@gmail.com</a> | WhatsApp: <a href="https://wa.me/01700000000" target="_blank" rel="noopener noreferrer">+8801700000000</a></p>
+</footer>
 
-    <!-- Share Modal -->
-    <div id="shareModal" class="modal">
-        <div class="modal-content">
-            <h3><i class="fas fa-share-alt"></i> Share Post</h3>
-            <div class="share-options">
-                <a href="#" id="shareWhatsapp" class="share-option whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>Share on WhatsApp</span>
-                </a>
-                <a href="#" id="shareFacebook" class="share-option facebook" target="_blank">
-                    <i class="fab fa-facebook-f"></i>
-                    <span>Share on Facebook</span>
-                </a>
-                <a href="#" id="shareTwitter" class="share-option twitter" target="_blank">
-                    <i class="fab fa-twitter"></i>
-                    <span>Share on Twitter</span>
-                </a>
-                <button onclick="copyPostLink()" class="share-option copy-link">
-                    <i class="fas fa-link"></i>
-                    <span>Copy Link</span>
-                </button>
-            </div>
-            <button onclick="closeShareModal()" class="close-modal">
-                <i class="fas fa-times"></i>
-                Close
-            </button>
-        </div>
-    </div>
+<script>
+(() => {
+  'use strict';
 
-    <!-- Success Message -->
-    <div id="successMessage" class="success-message">
-        <i class="fas fa-check-circle"></i>
-        <span id="successText">Success!</span>
-    </div>
+  const ADMIN_EMAIL = "999farhanislam@gmail.com";
+  const ADMIN_PASS = "site@100";
+  const SECRET_KEY_FOR_ACCOUNT = "mahi";
 
-    <script>
-        // Authentication System
-        const users = {
-            '999farhanislam@gmail.com': 'farhan123'
-        };
+  // Storage keys
+  const STORAGE_KEYS = {
+    POSTS: "pro-poster-posts",
+    VISITS: "pro-poster-visits",
+    ACCOUNT: "pro-poster-account",
+    SESSION: "pro-poster-session",
+  };
 
-        let currentUser = null;
-        let posts = JSON.parse(localStorage.getItem('farhanPosts')) || [];
-        let currentSharePost = null;
+  // DOM elements
+  const navHomeBtn = document.getElementById("nav-home");
+  const navTimelineBtn = document.getElementById("nav-timeline");
+  const navSettingsBtn = document.getElementById("nav-settings");
 
-        // DOM Elements
-        const loginPage = document.getElementById('loginPage');
-        const mainSite = document.getElementById('mainSite');
-        const loginForm = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const userEmail = document.getElementById('userEmail');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const postForm = document.getElementById('postForm');
-        const postsContainer = document.getElementById('postsContainer');
-        const shareModal = document.getElementById('shareModal');
-        const successMessage = document.getElementById('successMessage');
+  const loginButton = document.getElementById("login-button");
+  const logoutButton = document.getElementById("logout-button");
+  const logoutButtonSidebar = document.getElementById("logout-button-sidebar");
+  const loginForm = document.getElementById("login-form");
+  const loginError = document.getElementById("login-error");
+  const adminPanel = document.getElementById("admin-panel");
 
-        // Check if user is already logged in
-        const savedUser = localStorage.getItem('currentUser');
-        if (savedUser) {
-            currentUser = savedUser;
-            showMainSite();
-        }
+  const emailInput = document.getElementById("email-input");
+  const passwordInput = document.getElementById("password-input");
 
-        // Login Form Handler
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (users[email] && users[email] === password) {
-                currentUser = email;
-                localStorage.setItem('currentUser', email);
-                showMainSite();
-                errorMessage.style.display = 'none';
-                showSuccessMessage('Login successful! Welcome back.');
-            } else {
-                errorMessage.style.display = 'block';
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 5000);
-            }
-        });
+  const accountInfoContainer = document.getElementById("account-info");
+  const visitCountEl = document.getElementById("visit-count");
 
-        // Logout Handler
-        logoutBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to logout?')) {
-                currentUser = null;
-                localStorage.removeItem('currentUser');
-                showLoginPage();
-                showSuccessMessage('Logout successful!');
-            }
-        });
+  const postEditorForm = document.getElementById("post-editor");
+  const postTitleInput = document.getElementById("post-title");
+  const postCaptionInput = document.getElementById("post-caption");
+  const postFileInput = document.getElementById("post-file");
+  const postRedirectInput = document.getElementById("post-redirect-link");
+  const postPrivacySelect = document.getElementById("post-privacy");
 
-        // Post Form Handler
-        postForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            createPost();
-        });
+  const settingNameInput = document.getElementById("setting-name");
+  const settingProfilePicInput = document.getElementById("setting-profile-pic");
+  const saveSettingsButton = document.getElementById("save-settings");
 
-        function showSuccessMessage(message) {
-            document.getElementById('successText').textContent = message;
-            successMessage.classList.add('show');
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 3000);
-        }
+  const postsList = document.getElementById("posts-list");
 
-        function showLoginPage() {
-            loginPage.style.display = 'flex';
-            mainSite.style.display = 'none';
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-        }
+  const editModal = document.getElementById("edit-modal");
+  const editModalCloseBtn = editModal.querySelector(".close-btn");
+  const editPostForm = document.getElementById("edit-post-form");
+  const editPostTitleInput = document.getElementById("edit-post-title");
+  const editPostCaptionInput = document.getElementById("edit-post-caption");
+  const editPostFileInput = document.getElementById("edit-post-file");
+  const editPostRedirectInput = document.getElementById("edit-post-redirect-link");
+  const editPostPrivacySelect = document.getElementById("edit-post-privacy");
+  const editPostDateInput = document.getElementById("edit-post-date");
+  const deletePostBtn = document.getElementById("delete-post-btn");
 
-        function showMainSite() {
-            loginPage.style.display = 'none';
-            mainSite.style.display = 'block';
-            userEmail.textContent = currentUser;
-            document.getElementById('userAvatar').textContent = currentUser.charAt(0).toUpperCase();
-            displayPosts();
-        }
+  const notificationBar = document.getElementById("notification-bar");
 
-        function createPost() {
-            const caption = document.getElementById('caption').value;
-            const imageFile = document.getElementById('imageFile').files[0];
-            const videoFile = document.getElementById('videoFile').files[0];
+  // Sections for navigation
+  const postsSection = document.getElementById("posts-section");
+  const sidebar = document.getElementById("sidebar");
+  const loginSection = loginForm.parentElement; // sidebar
 
-            if (!caption.trim() && !imageFile && !videoFile) {
-                alert('Please add at least a caption, image, or video!');
-                return;
-            }
+  // Global state
+  let posts = [];
+  let account = {
+    name: "Admin",
+    profilePic: "",
+  };
+  let session = {
+    loggedIn: false,
+  };
+  let visitCount = 0;
+  let currentView = "home"; // home, timeline, settings
 
-            const post = {
-                id: Date.now(),
-                author: currentUser,
-                caption: caption,
-                date: new Date().toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }),
-                image: null,
-                video: null,
-                likes: [],
-                comments: [],
-                shares: 0
-            };
+  let editingPostId = null;
 
-            // Handle image upload
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    post.image = e.target.result;
-                    
-                    // Handle video upload if present
-                    if (videoFile) {
-                        const videoReader = new FileReader();
-                        videoReader.onload = function(e) {
-                            post.video = e.target.result;
-                            savePost(post);
-                        };
-                        videoReader.readAsDataURL(videoFile);
-                    } else {
-                        savePost(post);
-                    }
-                };
-                reader.readAsDataURL(imageFile);
-            } else if (videoFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    post.video = e.target.result;
-                    savePost(post);
-                };
-                reader.readAsDataURL(videoFile);
-            } else {
-                savePost(post);
-            }
-        }
+  // Util functions
+  function saveToStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  function loadFromStorage(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch {
+      return null;
+    }
+  }
+  function generateUniqueId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  }
+  function formatDateISOtoYYYYMMDD(iso) {
+    if (!iso) return "";
+    return iso.slice(0,10);
+  }
+  function formatDateForPost(dateStr) {
+    if (!dateStr) return "";
+    const parts = dateStr.split("-");
+    if (parts.length !==3) return dateStr;
+    return parts[2] + "-" + parts[1] + "-" + parts[0];
+  }
+  function escapeHtml(text) {
+    if (!text) return "";
+    return text.toString()
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+  function showNotification(msg, duration = 3500) {
+    notificationBar.textContent = msg;
+    notificationBar.classList.add("show");
+    setTimeout(() => {
+      notificationBar.classList.remove("show");
+    }, duration);
+  }
+  function incrementVisitCount() {
+    let visitsData = loadFromStorage(STORAGE_KEYS.VISITS) || {};
+    let todayKey = new Date().toISOString().slice(0,10).replace(/-/g,"");
+    visitsData[todayKey] = (visitsData[todayKey] || 0) + 1;
+    saveToStorage(STORAGE_KEYS.VISITS, visitsData);
+    return visitsData[todayKey];
+  }
+  function getTodayVisitCount() {
+    let visitsData = loadFromStorage(STORAGE_KEYS.VISITS) || {};
+    let todayKey = new Date().toISOString().slice(0,10).replace(/-/g,"");
+    return visitsData[todayKey] || 0;
+  }
 
-        function savePost(post) {
-            posts.unshift(post);
-            localStorage.setItem('farhanPosts', JSON.stringify(posts));
-            displayPosts();
-            postForm.reset();
-            showSuccessMessage('Post created successfully!');
-        }
+  // Loading/saving posts/account/session
+  function savePosts() { saveToStorage(STORAGE_KEYS.POSTS, posts); }
+  function loadPosts() {
+    const loaded = loadFromStorage(STORAGE_KEYS.POSTS);
+    if(Array.isArray(loaded)) posts = loaded;
+    else posts = [];
+  }
+  function saveAccount() { saveToStorage(STORAGE_KEYS.ACCOUNT, account); }
+  function loadAccount() {
+    const a = loadFromStorage(STORAGE_KEYS.ACCOUNT);
+    if(a && typeof a === "object") account = a;
+  }
+  function saveSession() { saveToStorage(STORAGE_KEYS.SESSION, session); }
+  function loadSession() {
+    const s = loadFromStorage(STORAGE_KEYS.SESSION);
+    if(s && typeof s === "object") session = s;
+  }
 
-        function displayPosts() {
-            if (posts.length === 0) {
-                postsContainer.innerHTML = `
-                    <div class="no-posts">
-                        <i class="fas fa-images"></i>
-                        <h3>No Posts Yet</h3>
-                        <p>Start sharing your amazing content with the world!</p>
-                    </div>
-                `;
-                return;
-            }
+  // LOGIN/LOGOUT
+  function login(email, password) {
+    if(email.toLowerCase()===ADMIN_EMAIL.toLowerCase() && password===ADMIN_PASS) {
+      session.loggedIn = true;
+      saveSession();
+      showNotification("Login successful");
+      renderLoggedInUI();
+      return true;
+    }
+    loginError.textContent = "Invalid email or password";
+    return false;
+  }
+  function logout() {
+    session.loggedIn = false;
+    saveSession();
+    renderLoggedOutUI();
+    showNotification("Logged out successfully");
+  }
+  function renderLoggedInUI() {
+    loginForm.style.display = "none";
+    adminPanel.hidden = false;
+    loginButton.classList.add("hidden");
+    logoutButton.classList.remove("hidden");
+    logoutButtonSidebar.classList.remove("hidden");
 
-            postsContainer.innerHTML = '';
-            
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post fade-in';
-                
-                let mediaHTML = '';
-                if (post.image) {
-                    mediaHTML += `<img src="${post.image}" alt="Post image" class="post-image">`;
-                }
-                if (post.video) {
-                    mediaHTML += `<video src="${post.video}" controls class="post-video"></video>`;
-                }
+    emailInput.value = "";
+    passwordInput.value = "";
+    loginError.textContent = "";
 
-                const isLiked = post.likes.includes(currentUser);
-                const authorInitial = post.author.charAt(0).toUpperCase();
-                
-                postElement.innerHTML = `
-                    <div class="post-header">
-                        <div class="post-avatar">${authorInitial}</div>
-                        <div class="post-author-info">
-                            <div class="post-author">${post.author}</div>
-                            <div class="post-date">
-                                <i class="fas fa-clock"></i>
-                                ${post.date}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        ${post.caption ? `<div class="post-caption">${post.caption}</div>` : ''}
-                        ${mediaHTML ? `<div class="post-media">${mediaHTML}</div>` : ''}
-                    </div>
-                    <div class="post-actions">
-                        <div class="action-buttons">
-                            <button onclick="toggleLike(${post.id})" class="action-btn like-btn ${isLiked ? 'liked' : ''}">
-                                <i class="fas fa-heart"></i>
-                                ${post.likes.length} ${post.likes.length === 1 ? 'Like' : 'Likes'}
-                            </button>
-                            <button onclick="toggleComments(${post.id})" class="action-btn comment-btn">
-                                <i class="fas fa-comment"></i>
-                                ${post.comments.length} ${post.comments.length === 1 ? 'Comment' : 'Comments'}
-                            </button>
-                            <button onclick="sharePost(${post.id})" class="action-btn share-btn">
-                                <i class="fas fa-share"></i>
-                                ${post.shares} ${post.shares === 1 ? 'Share' : 'Shares'}
-                            </button>
-                        </div>
-                        ${post.author === currentUser ? `
-                            <button onclick="deletePost(${post.id})" class="delete-btn">
-                                <i class="fas fa-trash"></i>
-                                Delete
-                            </button>
-                        ` : ''}
-                    </div>
-                    <div id="comments-${post.id}" class="comments-section">
-                        <div class="comment-form">
-                            <div class="comment-input">
-                                <input type="text" id="comment-input-${post.id}" placeholder="Write a comment..." onkeypress="if(event.key === 'Enter') addComment(${post.id})">
-                                <button onclick="addComment(${post.id})" class="comment-submit">
-                                    <i class="fas fa-paper-plane"></i>
-                                    Post
-                                </button>
-                            </div>
-                        </div>
-                        <div class="comments-list" id="comments-list-${post.id}">
-                            ${displayComments(post.comments)}
-                        </div>
-                    </div>
-                `;
-                
-                postsContainer.appendChild(postElement);
+    accountInfoContainer.textContent = `Name: ${account.name}`;
+    settingNameInput.value = account.name;
+    settingProfilePicInput.value = account.profilePic || "";
+
+    visitCount = getTodayVisitCount();
+    visitCountEl.textContent = visitCount;
+
+    postEditorForm.style.display = "flex";
+
+    setView(currentView);
+    renderPosts();
+  }
+  function renderLoggedOutUI() {
+    loginForm.style.display = "flex";
+    adminPanel.hidden = true;
+    loginButton.classList.remove("hidden");
+    logoutButton.classList.add("hidden");
+    logoutButtonSidebar.classList.add("hidden");
+
+    setView("home");
+    renderPosts();
+  }
+
+  // NAVIGATION VIEW
+  function setView(view) {
+    currentView = view;
+    // Clear active on all nav buttons
+    navHomeBtn.classList.remove("active");
+    navTimelineBtn.classList.remove("active");
+    navSettingsBtn.classList.remove("active");
+    postsSection.style.display = "block";
+    adminPanel.hidden = !session.loggedIn;
+
+    if(view === "home") {
+      navHomeBtn.classList.add("active");
+      postsSection.querySelector("h2").textContent = "All Posts";
+      // In home, show all public posts and private posts only visible to owner if logged in
+    } else if(view === "timeline") {
+      navTimelineBtn.classList.add("active");
+      postsSection.querySelector("h2").textContent = "Timeline Posts";
+      // Timeline means only posts visible to logged-in user or public: all posts if logged out
+    } else if(view === "settings") {
+      navSettingsBtn.classList.add("active");
+      postsSection.style.display = "none";
+      adminPanel.hidden = false;
+    }
+    renderPosts();
+  }
+
+  // POST RENDERING
+  function filterPostsForView() {
+    if(currentView === "home") {
+      // Show all posts, exclude private posts if not logged in or owner
+      return posts.filter(p => (p.privacy === "public") || (session.loggedIn && p.privacy === "private"));
+    }
+    if(currentView === "timeline") {
+      // Timeline: if logged in, show all posts; else only public posts
+      if(!session.loggedIn) return posts.filter(p => p.privacy==="public");
+      return posts;
+    }
+    return [];
+  }
+  function renderPosts() {
+    postsList.innerHTML = "";
+    const viewPosts = filterPostsForView();
+    if(viewPosts.length === 0) {
+      postsList.innerHTML = "<p>No posts available.</p>";
+      return;
+    }
+    const loggedIn = session.loggedIn;
+
+    // Sort by date descending
+    viewPosts.sort((a,b) => new Date(b.postDate) - new Date(a.postDate));
+
+    viewPosts.forEach(post => {
+      const postEl = document.createElement("article");
+      postEl.className = "post";
+      postEl.id = "post-" + post.id;
+      postEl.tabIndex = 0;
+      postEl.setAttribute("aria-label", "Post: " + post.title);
+
+      // Post header: title and date and privacy icon
+      const postHeader = document.createElement("div");
+      postHeader.className = "post-header";
+
+      const titleDate = document.createElement("div");
+      titleDate.className = "post-title-date";
+      titleDate.textContent = `${post.title} - ${formatDateForPost(post.postDate)}`;
+      postHeader.appendChild(titleDate);
+
+      // Privacy label
+      const privacyLabel = document.createElement("div");
+      privacyLabel.className = "privacy-label";
+      privacyLabel.title = post.privacy === "private" ? "Private Post" : "Public Post";
+      privacyLabel.textContent = post.privacy === "private" ? "🔒 Private" : "🌐 Public";
+      postHeader.appendChild(privacyLabel);
+
+      postEl.appendChild(postHeader);
+
+      if(post.mediaData){
+        const mediaDiv = document.createElement("div");
+        mediaDiv.className = "post-media";
+
+        if(post.mediaType.startsWith("image")){
+          const img = document.createElement("img");
+          img.src = post.mediaData;
+          img.alt = escapeHtml(post.title);
+          img.tabIndex = 0;
+          if(post.redirectLink) {
+            img.style.cursor = "pointer";
+            img.title = "Click to go to redirect link";
+            img.addEventListener("click", () => window.open(post.redirectLink, "_blank", "noopener"));
+            img.addEventListener("keydown", e=>{
+              if(e.key === "Enter" || e.key===" ") {
+                e.preventDefault();
+                window.open(post.redirectLink, "_blank", "noopener");
+              }
             });
+          }
+          mediaDiv.appendChild(img);
+        } else if(post.mediaType.startsWith("video")){
+          const video = document.createElement("video");
+          video.src = post.mediaData;
+          video.controls = true;
+          video.title = escapeHtml(post.title);
+          video.tabIndex = 0;
+          if(post.redirectLink) {
+            video.style.cursor = "pointer";
+            video.addEventListener("click", () => window.open(post.redirectLink, "_blank", "noopener"));
+            video.addEventListener("keydown", e=>{
+              if(e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                window.open(post.redirectLink, "_blank", "noopener");
+              }
+            });
+          }
+          mediaDiv.appendChild(video);
         }
+        postEl.appendChild(mediaDiv);
+      }
 
-        function displayComments(comments) {
-            if (!comments || comments.length === 0) {
-                return '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">No comments yet. Be the first to comment!</div>';
-            }
+      if(post.caption){
+        const captionEl = document.createElement("p");
+        captionEl.className = "caption";
+        captionEl.textContent = post.caption;
+        postEl.appendChild(captionEl);
+      }
 
-            return comments.map(comment => {
-                const commentInitial = comment.author.charAt(0).toUpperCase();
-                return `
-                    <div class="comment">
-                        <div class="comment-avatar">${commentInitial}</div>
-                        <div class="comment-content">
-                            <div class="comment-author">${comment.author}</div>
-                            <div class="comment-text">${comment.text}</div>
-                            <div class="comment-date">
-                                <i class="fas fa-clock"></i>
-                                ${comment.date}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+      // Footer buttons
+      const footer = document.createElement("footer");
+      footer.className = "post-footer";
+
+      const likeBtn = document.createElement("button");
+      likeBtn.type = "button";
+      likeBtn.className = "like-btn";
+      likeBtn.setAttribute("aria-label", "Like post");
+      likeBtn.tabIndex = 0;
+      likeBtn.innerHTML = `👍 <span class="like-count">${post.likes}</span>`;
+      footer.appendChild(likeBtn);
+
+      const commentBtn = document.createElement("button");
+      commentBtn.type = "button";
+      commentBtn.className = "comment-btn";
+      commentBtn.setAttribute("aria-label", "Comment on post");
+      commentBtn.tabIndex = 0;
+      commentBtn.innerHTML = `💬 <span class="comment-count">${post.comments.length}</span>`;
+      footer.appendChild(commentBtn);
+
+      const shareBtn = document.createElement("button");
+      shareBtn.type = "button";
+      shareBtn.className = "share-btn";
+      shareBtn.setAttribute("aria-label", "Share post");
+      shareBtn.tabIndex = 0;
+      shareBtn.innerHTML = `🔗 Share <span class="share-count">(${post.shares})</span>`;
+      footer.appendChild(shareBtn);
+
+      const copyLinkBtn = document.createElement("button");
+      copyLinkBtn.type = "button";
+      copyLinkBtn.className = "copy-link";
+      copyLinkBtn.setAttribute("aria-label", "Copy post link");
+      copyLinkBtn.tabIndex = 0;
+      copyLinkBtn.textContent = "Copy Link";
+      footer.appendChild(copyLinkBtn);
+
+      postEl.appendChild(footer);
+
+      const commentsContainer = document.createElement("div");
+      commentsContainer.className = "comments-container";
+      commentsContainer.style.display = "none";
+      commentsContainer.setAttribute("aria-live", "polite");
+      commentsContainer.setAttribute("aria-label", "Post comments");
+      post.comments.forEach(cmt=>{
+        const commentEl = document.createElement("div");
+        commentEl.className = "comment";
+        commentEl.textContent = cmt.text;
+        commentsContainer.appendChild(commentEl);
+      });
+      postEl.appendChild(commentsContainer);
+
+      if(loggedIn && post.privacy === "private") {
+        // Non-owner does not see private posts — filtered out earlier
+      }
+
+      if(loggedIn && isPostOwner(post)) {
+        // Three dots (Admin menu)
+        const threeDotsBtn = document.createElement("button");
+        threeDotsBtn.className = "three-dots";
+        threeDotsBtn.setAttribute("aria-haspopup","menu");
+        threeDotsBtn.setAttribute("aria-label","Edit post menu");
+        threeDotsBtn.textContent = "⋮";
+        postEl.appendChild(threeDotsBtn);
+
+        threeDotsBtn.onclick = (e) => {
+          e.stopPropagation();
+          openEditModalMenu(post.id);
+        };
+      }
+
+      likeBtn.onclick = () => {
+        if(!session.loggedIn){
+          showNotification("Please login to like posts");
+          return;
         }
+        post.likes++;
+        savePosts();
+        renderPosts();
+        showNotification("You liked the post");
+      };
 
-        function toggleLike(postId) {
-            const post = posts.find(p => p.id === postId);
-            if (!post) return;
+      commentBtn.onclick = () => {
+        if(commentsContainer.style.display === "none") {
+          commentsContainer.style.display = "block";
+          if(!commentsContainer.querySelector("form")){
+            const form = document.createElement("form");
+            form.style.marginTop = "8px";
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Write a comment...";
+            input.style.width = "100%";
+            input.required = true;
+            input.setAttribute("aria-label", "Comment input");
+            input.autocomplete = "off";
+            input.spellcheck = true;
+            form.appendChild(input);
 
-            const likeIndex = post.likes.indexOf(currentUser);
-            if (likeIndex > -1) {
-                post.likes.splice(likeIndex, 1);
-                showSuccessMessage('Post unliked!');
-            } else {
-                post.likes.push(currentUser);
-                showSuccessMessage('Post liked!');
-            }
-
-            localStorage.setItem('farhanPosts', JSON.stringify(posts));
-            displayPosts();
-        }
-
-        function toggleComments(postId) {
-            const commentsSection = document.getElementById(`comments-${postId}`);
-            if (commentsSection.classList.contains('show')) {
-                commentsSection.classList.remove('show');
-            } else {
-                commentsSection.classList.add('show');
-                setTimeout(() => {
-                    document.getElementById(`comment-input-${postId}`).focus();
-                }, 100);
-            }
-        }
-
-        function addComment(postId) {
-            const commentInput = document.getElementById(`comment-input-${postId}`);
-            const commentText = commentInput.value.trim();
-            
-            if (!commentText) {
-                alert('Please write a comment!');
-                return;
-            }
-
-            const post = posts.find(p => p.id === postId);
-            if (!post) return;
-
-            const comment = {
-                id: Date.now(),
-                author: currentUser,
-                text: commentText,
-                date: new Date().toLocaleString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })
+            form.onsubmit = (ev) => {
+              ev.preventDefault();
+              if(!input.value.trim()) return;
+              post.comments.push({id: generateUniqueId(), text: input.value.trim()});
+              savePosts();
+              renderPosts();
+              showNotification("Comment added");
             };
-
-            post.comments.unshift(comment);
-            localStorage.setItem('farhanPosts', JSON.stringify(posts));
-            
-            commentInput.value = '';
-            displayPosts();
-            showSuccessMessage('Comment added successfully!');
+            commentsContainer.appendChild(form);
+            input.focus();
+          }
+        } else {
+          commentsContainer.style.display = "none";
         }
+      };
 
-        function sharePost(postId) {
-            const post = posts.find(p => p.id === postId);
-            if (!post) return;
-
-            currentSharePost = post;
-            
-            // Update share URLs
-            const postText = `${post.caption || 'Check out this amazing post!'} - Farhan Sites`;
-            const postUrl = window.location.href;
-            
-            document.getElementById('shareWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(postText + ' ' + postUrl)}`;
-            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}&quote=${encodeURIComponent(postText)}`;
-            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postText)}&url=${encodeURIComponent(postUrl)}`;
-            
-            shareModal.classList.add('show');
-            
-            // Increment share count
-            post.shares++;
-            localStorage.setItem('farhanPosts', JSON.stringify(posts));
-            displayPosts();
+      shareBtn.onclick = async () => {
+        post.shares++;
+        savePosts();
+        renderPosts();
+        const postUrl = window.location.origin + window.location.pathname + "?post=" + encodeURIComponent(post.id);
+        try {
+          if(navigator.share){
+            await navigator.share({
+              title: post.title,
+              text: `Check out my post: ${post.title}`,
+              url: postUrl,
+            });
+            showNotification("Shared successfully");
+          } else {
+            await navigator.clipboard.writeText(postUrl);
+            showNotification("Link copied. Share now!");
+          }
+        } catch {
+          await navigator.clipboard.writeText(postUrl);
+          showNotification("Link copied. Share now!");
         }
+      };
 
-        function copyPostLink() {
-            const postUrl = window.location.href;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(postUrl).then(() => {
-                    showSuccessMessage('Link copied to clipboard!');
-                    closeShareModal();
-                });
-            } else {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = postUrl;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showSuccessMessage('Link copied to clipboard!');
-                closeShareModal();
-            }
+      copyLinkBtn.onclick = async () => {
+        const postUrl = window.location.origin + window.location.pathname + "?post=" + encodeURIComponent(post.id);
+        try {
+          await navigator.clipboard.writeText(postUrl);
+          showNotification("Post link copied");
+        } catch {
+          showNotification("Failed to copy. Please copy manually");
         }
+      };
 
-        function closeShareModal() {
-            shareModal.classList.remove('show');
-            currentSharePost = null;
+      postsList.appendChild(postEl);
+    });
+  }
+
+  // Checks if current logged in user is owner (for now only one admin)
+  function isPostOwner(post) {
+    // Only admin (loggedIn true) owns posts for this app
+    return session.loggedIn;
+  }
+
+  // Handle post submission
+  async function handlePostSubmit(e) {
+    e.preventDefault();
+    const title = postTitleInput.value.trim();
+    if(!title){
+      showNotification("Title is required");
+      return;
+    }
+    const caption = postCaptionInput.value.trim();
+    let mediaFile = postFileInput.files[0];
+    let mediaDataUrl = "";
+    let mediaType = "";
+    if(mediaFile){
+      mediaType = mediaFile.type;
+      try {
+        mediaDataUrl = await readFileAsDataURL(mediaFile);
+      } catch {
+        showNotification("Failed to read file");
+        return;
+      }
+    }
+    const redirectLink = postRedirectInput.value.trim() || "";
+    const privacy = postPrivacySelect.value;
+
+    const postDate = new Date().toISOString().slice(0,10);
+
+    const newPost = {
+      id : generateUniqueId(),
+      title,
+      caption,
+      mediaData: mediaDataUrl,
+      mediaType,
+      redirectLink,
+      postDate,
+      privacy,
+      likes: 0,
+      comments: [],
+      shares: 0,
+    };
+
+    posts.push(newPost);
+    savePosts();
+
+    postTitleInput.value = "";
+    postCaptionInput.value = "";
+    postFileInput.value = "";
+    postRedirectInput.value = "";
+    postPrivacySelect.value = "public";
+
+    renderPosts();
+    showNotification("Post created successfully");
+  }
+
+  function readFileAsDataURL(file) {
+    return new Promise((resolve, reject)=>{
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("File read error"));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Save settings
+  function saveSettings() {
+    const newName = settingNameInput.value.trim() || "Admin";
+    const newProfilePic = settingProfilePicInput.value.trim();
+
+    account.name = newName;
+    account.profilePic = newProfilePic;
+    saveAccount();
+    accountInfoContainer.textContent = `Name: ${account.name}`;
+
+    renderPosts();
+    showNotification("Settings saved successfully");
+  }
+
+  // Edit modal
+  function openEditModal(postId) {
+    editingPostId = postId;
+    const post = posts.find(p=>p.id===postId);
+    if(!post) return;
+    editPostTitleInput.value = post.title;
+    editPostCaptionInput.value = post.caption || "";
+    editPostRedirectInput.value = post.redirectLink || "";
+    editPostPrivacySelect.value = post.privacy || "public";
+    editPostDateInput.value = post.postDate || new Date().toISOString().slice(0,10);
+    editPostFileInput.value = "";
+    editModal.classList.add("active");
+    editPostTitleInput.focus();
+  }
+  function closeEditModal() {
+    editingPostId = null;
+    editModal.classList.remove("active");
+  }
+  async function handleEditPostSubmit(e) {
+    e.preventDefault();
+    if(!editingPostId) {
+      closeEditModal();
+      return;
+    }
+    const post = posts.find(p=>p.id===editingPostId);
+    if(!post) {
+      closeEditModal();
+      return;
+    }
+    const title = editPostTitleInput.value.trim();
+    if(!title){
+      showNotification("Title is required");
+      return;
+    }
+    const caption = editPostCaptionInput.value.trim();
+    const redirectLink = editPostRedirectInput.value.trim();
+    const privacy = editPostPrivacySelect.value;
+    const dateVal = editPostDateInput.value;
+
+    if(!dateVal){
+      showNotification("Date is required");
+      return;
+    }
+
+    const newFile = editPostFileInput.files[0];
+    let mediaDataUrl = post.mediaData;
+    let mediaType = post.mediaType;
+    if(newFile){
+      try {
+        mediaDataUrl = await readFileAsDataURL(newFile);
+        mediaType = newFile.type;
+      } catch {
+        showNotification("Failed to read file");
+        return;
+      }
+    }
+    post.title = title;
+    post.caption = caption;
+    post.redirectLink = redirectLink;
+    post.privacy = privacy;
+    post.postDate = dateVal;
+    post.mediaData = mediaDataUrl;
+    post.mediaType = mediaType;
+
+    savePosts();
+    renderPosts();
+    showNotification("Post updated successfully");
+    closeEditModal();
+  }
+  function deletePost(postId) {
+    if(!confirm("Are you sure you want to delete this post?")) return;
+    posts = posts.filter(p=>p.id!==postId);
+    savePosts();
+    renderPosts();
+    showNotification("Post deleted");
+    closeEditModal();
+  }
+
+  // Contextual menu for post editing
+  function openEditModalMenu(postId) {
+    // Show modal for editing with delete option
+    openEditModal(postId);
+  }
+
+  // Handle URL param post to scroll or focus
+  function handleUrlPostParam(){
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get("post");
+    if(postId){
+      setTimeout(() => {
+        const postEl = document.getElementById("post-" + postId);
+        if(postEl){
+          postEl.scrollIntoView({behavior:"smooth", block:"center"});
+          postEl.focus();
         }
+      }, 600);
+    }
+  }
 
-        function deletePost(postId) {
-            if (confirm('Are you sure you want to delete this post? This action cannot be undone.')) {
-                posts = posts.filter(post => post.id !== postId);
-                localStorage.setItem('farhanPosts', JSON.stringify(posts));
-                displayPosts();
-                showSuccessMessage('Post deleted successfully!');
-            }
-        }
+  // Event listeners
+  loginForm.addEventListener("submit", e=>{
+    e.preventDefault();
+    loginError.textContent="";
+    const email = emailInput.value.trim();
+    const pass = passwordInput.value;
+    if(!email||!pass){
+      loginError.textContent = "Email and password required";
+      return;
+    }
+    login(email, pass);
+  });
+  logoutButton.addEventListener("click", () => logout());
+  logoutButtonSidebar.addEventListener("click", () => logout());
 
-        // Close modal when clicking outside
-        shareModal.addEventListener('click', function(e) {
-            if (e.target === shareModal) {
-                closeShareModal();
-            }
-        });
+  postEditorForm.addEventListener("submit", handlePostSubmit);
+  saveSettingsButton.addEventListener("click", e=>{
+    e.preventDefault();
+    saveSettings();
+  });
 
-        // File input change handlers
-        document.getElementById('imageFile').addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                const fileName = e.target.files[0].name;
-                e.target.nextElementSibling.innerHTML = `<i class="fas fa-check-circle"></i><span>Selected: ${fileName}</span>`;
-            }
-        });
+  editModalCloseBtn.addEventListener("click", closeEditModal);
+  editPostForm.addEventListener("submit", handleEditPostSubmit);
+  deletePostBtn.addEventListener("click", ()=>{
+    if(editingPostId) deletePost(editingPostId);
+  });
 
-        document.getElementById('videoFile').addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                const fileName = e.target.files[0].name;
-                e.target.nextElementSibling.innerHTML = `<i class="fas fa-check-circle"></i><span>Selected: ${fileName}</span>`;
-            }
-        });
+  editModal.addEventListener("click", e=>{
+    if(e.target === editModal){
+      closeEditModal();
+    }
+  });
+  window.addEventListener("keydown", e=>{
+    if(e.key === "Escape" && editModal.classList.contains("active")){
+      closeEditModal();
+    }
+  });
 
-        // Initialize the app
-        if (currentUser) {
-            displayPosts();
-        }
+  navHomeBtn.addEventListener("click", ()=> {
+    setView("home");
+  });
+  navTimelineBtn.addEventListener("click", ()=> {
+    if(!session.loggedIn) {
+      showNotification("Please login to view timeline");
+      return;
+    }
+    setView("timeline");
+  });
+  navSettingsBtn.addEventListener("click", ()=> {
+    if(!session.loggedIn) {
+      showNotification("Please login to access settings");
+      return;
+    }
+    setView("settings");
+  });
 
-        // Add smooth scroll behavior
-        document.documentElement.style.scrollBehavior = 'smooth';
-    </script>
+  // Initialize
+  loadPosts();
+  loadAccount();
+  loadSession();
+
+  incrementVisitCount();
+
+  if(session.loggedIn){
+    renderLoggedInUI();
+  }else{
+    renderLoggedOutUI();
+  }
+  handleUrlPostParam();
+
+})();
+</script>
 </body>
 </html>
