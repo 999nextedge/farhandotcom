@@ -3,898 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>My Personal Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         :root {
-            --primary-color: #3a86ff;
-            --secondary-color: #8338ec;
-            --accent-color: #ff006e;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
+            --primary-color: #333;
+            --secondary-color: #555;
+            --accent-color: #007bff;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+            --border-color: #e0e0e0;
         }
 
         body {
-            background-color: #f0f2f5;
-            color: var(--dark-color);
+            font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-        }
-
-        .login-btn {
-            background-color: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .login-btn:hover {
-            background-color: var(--light-color);
-            transform: translateY(-2px);
-        }
-
-        /* Main Content Styles */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            height: fit-content;
-        }
-
-        .sidebar h3 {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .stats {
-            background-color: #f8f9fa;
-            padding: 15px;
+        .blog-post {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease-in-out;
         }
 
-        .stats p {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        .blog-post:hover {
+            transform: translateY(-5px);
         }
 
-        /* Post Styles */
-        .post {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: relative;
+        .blog-post h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 2em;
         }
 
-        .post-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .post-header img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 10px;
-        }
-
-        .post-info h4 {
-            margin: 0;
-        }
-
-        .post-info span {
-            font-size: 12px;
-            color: #777;
-        }
-
-        .post-content {
-            margin-bottom: 15px;
-        }
-
-        .post-content img, .post-content video {
-            width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-            max-height: 500px;
-            object-fit: contain;
-        }
-
-        .post-actions {
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
-            margin-bottom: 15px;
-        }
-
-        .post-action {
-            display: flex;
-            align-items: center;
-            color: #555;
-            cursor: pointer;
-        }
-
-        .post-action i {
-            margin-right: 5px;
-        }
-
-        .post-action:hover {
-            color: var(--primary-color);
-        }
-
-        .comments-section {
-            margin-top: 15px;
-        }
-
-        .comment {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .comment img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 10px;
-        }
-
-        .comment-content {
-            background-color: #f0f2f5;
-            padding: 10px;
-            border-radius: 18px;
-            flex: 1;
-        }
-
-        .comment-input {
-            display: flex;
-            margin-top: 10px;
-        }
-
-        .comment-input input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        /* Login Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 400px;
-            max-width: 90%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
+        .blog-post .meta {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
+        .blog-post img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 1rem;
         }
 
-        .submit-btn {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+        .blog-post p {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
         }
 
-        .submit-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        /* Admin Panel */
-        .admin-panel {
-            display: none;
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .create-post-btn {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .create-post-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        /* Create Post Modal */
-        .create-post-modal {
-            display: none;
-        }
-
-        .create-post-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 600px;
-            max-width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .post-form textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: vertical;
-            min-height: 150px;
-            margin-bottom: 15px;
-        }
-
-        .file-upload {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 15px;
-            border: 2px dashed #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .file-upload i {
-            font-size: 24px;
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-
-        .file-upload input {
-            display: none;
-        }
-
-        /* Post Options */
-        .post-options {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-        }
-
-        .post-menu {
-            display: none;
-            position: absolute;
-            top: 25px;
-            right: 0;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 150px;
-            z-index: 10;
-        }
-
-        .post-menu-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .post-menu-item i {
-            margin-right: 10px;
-        }
-
-        .post-menu-item:hover {
-            background-color: #f0f2f5;
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 40px 0;
-            margin-top: 40px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-            margin-bottom: 20px;
-        }
-
-        .contact-info h3 {
-            margin-bottom: 15px;
-        }
-
-        .contact-info p {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-info i {
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-
-        .social-links {
-            display: flex;
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            margin-right: 10px;
-            color: white;
+        .blog-post a {
+            color: var(--accent-color);
             text-decoration: none;
-            transition: all 0.3s;
+            font-weight: 600;
         }
 
-        .social-links a:hover {
+        .blog-post a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
             background-color: var(--primary-color);
-            transform: translateY(-3px);
+            color: #fff;
+            margin-top: 3rem;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
         }
 
-        .notification-bar {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background-color: white;
-            border-left: 4px solid var(--success-color);
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 1000;
-            max-width: 300px;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .main-content {
-                grid-template-columns: 1fr 2fr;
-            }
-            
-            .right-sidebar {
-                display: none;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+            header h1 {
+                font-size: 2em;
             }
-            
-            .left-sidebar {
-                display: none;
+            .container {
+                margin: 1rem auto;
+            }
+            .blog-post {
+                padding: 1rem;
+            }
+            .blog-post h2 {
+                font-size: 1.5em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-globe"></i>
-                    <span>Social Media</span>
-                </div>
-                <button class="login-btn" id="loginBtn">Login</button>
-            </div>
-        </div>
+        <h1>My Awesome Blog</h1>
+        <p>Sharing my thoughts, experiences, and insights.</p>
     </header>
 
-    <!-- Notification Bar -->
-    <div class="notification-bar" id="notificationBar">
-        <p id="notificationText"></p>
-    </div>
-
-    <!-- Main Content -->
     <div class="container">
-        <div class="main-content">
-            <!-- Left Sidebar -->
-            <div class="sidebar left-sidebar">
-                <h3>Site Statistics</h3>
-                <div class="stats">
-                    <p>Today's Visitors <span>125</span></p>
-                    <p>Total Visitors <span>12,589</span></p>
-                    <p>Total Posts <span>38</span></p>
-                    <p>Total Likes <span>1,258</span></p>
-                </div>
-                
-                <h3>Popular Posts</h3>
-                <div class="popular-posts">
-                    <div class="post">
-                        <div class="post-header">
-                            <img src="https://via.placeholder.com/40" alt="Profile">
-                            <div class="post-info">
-                                <h4>Farhan Islam</h4>
-                                <span>2 days ago</span>
-                            </div>
-                        </div>
-                        <div class="post-content">
-                            <p>Check out my new video...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Blog Post 1 -->
+        <article class="blog-post">
+            <h2>Exploring the Wonders of Web Development</h2>
+            <span class="meta">Posted on October 26, 2023 by John Doe | Categories: Tech, WebDev</span>
+            <p>
+                Web development is a vast and exciting field. From front-end design to back-end logic, there's always something new to learn and explore. In this post, I'll share my journey into modern web technologies and some tips for beginners.
+            </p>
+            <p>
+                Learning to build dynamic and responsive websites has been a rewarding experience. I've been experimenting with new CSS frameworks and JavaScript libraries to enhance user interfaces.
+            </p>
+            <p>
+                Always remember to keep practicing and building projects. That's the best way to solidify your knowledge and skills.
+            </p>
+            <a href="#">Read More</a>
+        </article>
 
-            <!-- Feed -->
-            <div class="feed">
-                <!-- Admin Panel (Visible after login) -->
-                <div class="admin-panel" id="adminPanel">
-                    <div class="admin-header">
-                        <h3>Admin Panel</h3>
-                        <button class="create-post-btn" id="createPostBtn">Create New Post</button>
-                    </div>
-                    <div class="admin-stats">
-                        <p>Welcome, Farhan Islam!</p>
-                    </div>
-                </div>
+        <!-- Blog Post 2 -->
+        <article class="blog-post">
+            <h2>My Latest Travel Adventures: A Trip to the Mountains</h2>
+            <span class="meta">Posted on October 20, 2023 by John Doe | Categories: Travel, Nature</span>
+            <img src="https://via.placeholder.com/800x400?text=Mountain+View" alt="Mountain View">
+            <p>
+                Just returned from an incredible trip to the mountains! The fresh air, stunning vistas, and challenging hikes made for an unforgettable experience. Here are some of my favorite moments and photos.
+            </p>
+            <p>
+                The tranquility of nature is truly rejuvenating. I highly recommend taking a break from the city life and immersing yourself in the wilderness.
+            </p>
+            <a href="#">Read More</a>
+        </article>
 
-                <!-- Posts -->
-                <div class="post">
-                    <div class="post-header">
-                        <img src="https://via.placeholder.com/40" alt="Profile">
-                        <div class="post-info">
-                            <h4>Farhan Islam</h4>
-                            <span>3 hours ago</span>
-                        </div>
-                        <div class="post-options">
-                            <i class="fas fa-ellipsis-h"></i>
-                            <div class="post-menu">
-                                <div class="post-menu-item"><i class="fas fa-edit"></i> Edit</div>
-                                <div class="post-menu-item"><i class="fas fa-trash"></i> Delete</div>
-                                <div class="post-menu-item"><i class="fas fa-link"></i> Copy Link</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <h3>Web Development Tutorial</h3>
-                        <p>Today we will learn how to create a complete website. Click the link below to watch the full tutorial...</p>
-                        <img src="https://via.placeholder.com/600x300" alt="Post Image">
-                    </div>
-                    <div class="post-actions">
-                        <div class="post-action">
-                            <i class="far fa-heart"></i>
-                            <span>Like</span>
-                        </div>
-                        <div class="post-action">
-                            <i class="far fa-comment"></i>
-                            <span>Comment</span>
-                        </div>
-                        <div class="post-action">
-                            <i class="far fa-share-square"></i>
-                            <span>Share</span>
-                        </div>
-                    </div>
-                    <div class="comments-section">
-                        <div class="comment">
-                            <img src="https://via.placeholder.com/30" alt="Profile">
-                            <div class="comment-content">
-                                <strong>Rahim</strong>
-                                <p>Great tutorial, learned a lot!</p>
-                            </div>
-                        </div>
-                        <div class="comment-input">
-                            <input type="text" placeholder="Write a comment...">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post">
-                    <div class="post-header">
-                        <img src="https://via.placeholder.com/40" alt="Profile">
-                        <div class="post-info">
-                            <h4>Farhan Islam</h4>
-                            <span>1 day ago</span>
-                        </div>
-                        <div class="post-options">
-                            <i class="fas fa-ellipsis-h"></i>
-                            <div class="post-menu">
-                                <div class="post-menu-item"><i class="fas fa-edit"></i> Edit</div>
-                                <div class="post-menu-item"><i class="fas fa-trash"></i> Delete</div>
-                                <div class="post-menu-item"><i class="fas fa-link"></i> Copy Link</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <h3>Programming Basics</h3>
-                        <p>The 5 fundamental concepts you must know to start programming...</p>
-                        <video controls>
-                            <source src="#" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="post-actions">
-                        <div class="post-action">
-                            <i class="far fa-heart"></i>
-                            <span>Like</span>
-                        </div>
-                        <div class="post-action">
-                            <i class="far fa-comment"></i>
-                            <span>Comment</span>
-                        </div>
-                        <div class="post-action">
-                            <i class="far fa-share-square"></i>
-                            <span>Share</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Sidebar -->
-            <div class="sidebar right-sidebar">
-                <h3>Notifications</h3>
-                <div class="notifications">
-                    <div class="notification">
-                        <p><strong>Rahim</strong> liked your post</p>
-                        <span>10 minutes ago</span>
-                    </div>
-                    <div class="notification">
-                        <p><strong>Karim</strong> shared your video</p>
-                        <span>1 hour ago</span>
-                    </div>
-                    <div class="notification">
-                        <p><strong>Sumaiya</strong> commented on your post</p>
-                        <span>2 hours ago</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Blog Post 3 -->
+        <article class="blog-post">
+            <h2>The Art of Minimalist Living</h2>
+            <span class="meta">Posted on October 15, 2023 by John Doe | Categories: Lifestyle, Philosophy</span>
+            <p>
+                Embracing minimalism has significantly changed my perspective on consumption and happiness. It's not just about decluttering your home, but also your mind.
+            </p>
+            <p>
+                This post delves into the core principles of minimalist living and how it can lead to a more purposeful and less stressful life.
+            </p>
+            <a href="#">Read More</a>
+        </article>
     </div>
 
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="contact-info">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-phone"></i> +8801712XXXXXX</p>
-                    <p><i class="fas fa-envelope"></i> 999farhanislam@gmail.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p>&copy; 2023 My Awesome Blog. All rights reserved.</p>
     </footer>
 
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Login</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="submit-btn">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Create Post Modal -->
-    <div class="modal create-post-modal" id="createPostModal">
-        <div class="create-post-content">
-            <div class="modal-header">
-                <h2>Create New Post</h2>
-                <button class="close-btn" id="closeCreateModal">&times;</button>
-            </div>
-            <form class="post-form" id="postForm">
-                <div class="form-group">
-                    <label for="postTitle">Title</label>
-                    <input type="text" id="postTitle" required>
-                </div>
-                <div class="form-group">
-                    <label for="postContent">Content</label>
-                    <textarea id="postContent" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="redirectLink">Redirect Link (Optional)</label>
-                    <input type="url" id="redirectLink">
-                </div>
-                <div class="file-upload" id="fileUpload">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <span>Choose File</span>
-                    <input type="file" id="postFile" accept="image/*,video/*">
-                </div>
-                <div id="fileName"></div>
-                <button type="submit" class="submit-btn">Publish Post</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // DOM Elements
-        const loginBtn = document.getElementById('loginBtn');
-        const loginModal = document.getElementById('loginModal');
-        const closeModal = document.getElementById('closeModal');
-        const loginForm = document.getElementById('loginForm');
-        const adminPanel = document.getElementById('adminPanel');
-        const notificationBar = document.getElementById('notificationBar');
-        const notificationText = document.getElementById('notificationText');
-        const createPostBtn = document.getElementById('createPostBtn');
-        const createPostModal = document.getElementById('createPostModal');
-        const closeCreateModal = document.getElementById('closeCreateModal');
-        const postForm = document.getElementById('postForm');
-        const fileUpload = document.getElementById('fileUpload');
-        const postFile = document.getElementById('postFile');
-        const fileName = document.getElementById('fileName');
-        const postOptions = document.querySelectorAll('.post-options');
-        
-        // Show Login Modal
-        loginBtn.addEventListener('click', () => {
-            if (loginBtn.textContent === 'Login') {
-                loginModal.style.display = 'flex';
-            } else {
-                logout();
-            }
-        });
-
-        // Close Login Modal
-        closeModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-
-        // Show Create Post Modal
-        createPostBtn.addEventListener('click', () => {
-            createPostModal.style.display = 'flex';
-        });
-
-        // Close Create Post Modal
-        closeCreateModal.addEventListener('click', () => {
-            createPostModal.style.display = 'none';
-        });
-
-        // File Upload
-        fileUpload.addEventListener('click', () => {
-            postFile.click();
-        });
-
-        postFile.addEventListener('change', () => {
-            if (postFile.files.length > 0) {
-                fileName.textContent = `Selected file: ${postFile.files[0].name}`;
-            }
-        });
-
-        // Post Options Toggle
-        postOptions.forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const menu = option.querySelector('.post-menu');
-                const allMenus = document.querySelectorAll('.post-menu');
-                
-                allMenus.forEach(m => {
-                    if (m !== menu) {
-                        m.style.display = 'none';
-                    }
-                });
-                
-                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-
-        // Close menus when clicking elsewhere
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.post-menu').forEach(menu => {
-                menu.style.display = 'none';
-            });
-        });
-
-        // Login Form Submission
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (email === '999farhanislam@gmail.com' && password === 'site@100') {
-                // Successful login
-                showNotification('Login successful!');
-                loginModal.style.display = 'none';
-                adminPanel.style.display = 'block';
-                loginBtn.textContent = 'Logout';
-            } else {
-                // Failed login
-                showNotification('Email or password is incorrect!', 'error');
-            }
-        });
-
-        // Post Form Submission
-        postForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            showNotification('Post published successfully!');
-            createPostModal.style.display = 'none';
-            // Here you would normally send the data to a server
-        });
-
-        // Show Notification
-        function showNotification(message, type = 'success') {
-            notificationText.textContent = message;
-            notificationBar.style.display = 'block';
-            notificationBar.style.borderLeftColor = type === 'success' ? '#28a745' : '#dc3545';
-            
-            setTimeout(() => {
-                notificationBar.style.display = 'none';
-            }, 3000);
-        }
-
-        // Logout Function
-        function logout() {
-            adminPanel.style.display = 'none';
-            loginBtn.textContent = 'Login';
-            showNotification('Logout successful!');
-        }
-
-        // Post Like Functionality
-        const likeButtons = document.querySelectorAll('.post-action:first-child');
-        likeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const icon = button.querySelector('i');
-                if (icon.classList.contains('far')) {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                    icon.style.color = '#ff006e';
-                    showNotification('You liked this post!');
-                } else {
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-                    icon.style.color = '';
-                }
-            });
-        });
-
-        // Initialize Page
-        document.addEventListener('DOMContentLoaded', () => {
-            // Any initialization code can go here
-        });
-    </script>
 </body>
 </html>
