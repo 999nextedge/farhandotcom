@@ -158,8 +158,7 @@
 
         .post-media {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            min-height: 200px;
             background: #f8f9fa;
             display: flex;
             align-items: center;
@@ -170,9 +169,89 @@
 
         .post-media img, .post-media video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
             border-radius: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .post-media img:hover, .post-media video:hover {
+            transform: scale(1.02);
+        }
+
+        /* Full Screen Modal */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-modal.active {
+            display: flex;
+        }
+
+        .fullscreen-content {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .fullscreen-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .fullscreen-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .fullscreen-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .fullscreen-hint {
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         .post-content {
@@ -1480,6 +1559,19 @@
         </div>
     </div>
 
+    <!-- Full Screen Modal -->
+    <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen(event)">
+        <button class="fullscreen-close" onclick="closeFullscreen()">&times;</button>
+        <img id="fullscreenImage" class="fullscreen-content" style="display: none;">
+        <video id="fullscreenVideo" class="fullscreen-content" style="display: none;" controls>
+            Your browser does not support the video tag.
+        </video>
+        <div id="fullscreenInfo" class="fullscreen-info">
+            <div class="fullscreen-title" id="fullscreenTitle"></div>
+            <div class="fullscreen-hint">Click anywhere outside to close</div>
+        </div>
+    </div>
+
     <script>
         // Application State
         let currentUser = null;
@@ -1994,9 +2086,9 @@
                 
                 if (post.media) {
                     if (post.media.type === 'image') {
-                        mediaHtml = `<div class="post-media"><img src="${post.media.data}" alt="${post.title}"></div>`;
+                        mediaHtml = `<div class="post-media"><img src="${post.media.data}" alt="${post.title}" onclick="openFullscreen('${post.media.data.replace(/'/g, "\\'")}', 'image', '${post.title.replace(/'/g, "\\'")}')"></div>`;
                     } else if (post.media.type === 'video') {
-                        mediaHtml = `<div class="post-media"><video src="${post.media.data}" controls></video></div>`;
+                        mediaHtml = `<div class="post-media"><video src="${post.media.data}" onclick="openFullscreen('${post.media.data.replace(/'/g, "\\'")}', 'video', '${post.title.replace(/'/g, "\\'")}')"></video></div>`;
                     }
                 } else if (post.type !== 'text') {
                     mediaHtml = `<div class="post-media">📄 ${post.type.charAt(0).toUpperCase() + post.type.slice(1)} Post</div>`;
@@ -2023,9 +2115,6 @@
                     contentHtml = `<p class="post-text">${post.content}</p>`;
                 }
                 
-                const redirectHtml = post.redirectUrl ? 
-                    `<a href="${post.redirectUrl}" target="_blank" rel="noopener noreferrer" class="redirect-link">Visit Link →</a>` : '';
-                
                 // Comments section
                 const postComments = comments[post.id] || [];
                 const commentsHtml = `
@@ -2051,13 +2140,17 @@
                     </div>
                 `;
                 
+                // Make title clickable if there's a redirect URL
+                const titleHtml = post.redirectUrl ? 
+                    `<h3 class="post-title" style="cursor: pointer; color: #667eea; transition: color 0.3s ease;" onclick="window.open('${post.redirectUrl}', '_blank', 'noopener,noreferrer')" title="Click to visit link">${post.title}</h3>` :
+                    `<h3 class="post-title">${post.title}</h3>`;
+                
                 return `
                     <div class="post-card">
                         ${mediaHtml}
                         <div class="post-content">
-                            <h3 class="post-title">${post.title}</h3>
+                            ${titleHtml}
                             ${contentHtml}
-                            ${redirectHtml}
                             <div class="post-meta">
                                 <span class="post-date">${post.date}</span>
                                 <span class="post-type">${post.type}</span>
@@ -2727,6 +2820,60 @@
             return post ? post.title : 'Unknown Post';
         }
 
+        // Full Screen Functions
+        function openFullscreen(mediaSrc, mediaType, title) {
+            const modal = document.getElementById('fullscreenModal');
+            const image = document.getElementById('fullscreenImage');
+            const video = document.getElementById('fullscreenVideo');
+            const titleElement = document.getElementById('fullscreenTitle');
+            
+            // Hide both elements first
+            image.style.display = 'none';
+            video.style.display = 'none';
+            
+            // Show the appropriate element
+            if (mediaType === 'image') {
+                image.src = mediaSrc;
+                image.style.display = 'block';
+            } else if (mediaType === 'video') {
+                video.src = mediaSrc;
+                video.style.display = 'block';
+            }
+            
+            titleElement.textContent = title;
+            modal.classList.add('active');
+            
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFullscreen(event) {
+            // Don't close if clicking on the media itself
+            if (event && (event.target.tagName === 'IMG' || event.target.tagName === 'VIDEO')) {
+                return;
+            }
+            
+            const modal = document.getElementById('fullscreenModal');
+            const video = document.getElementById('fullscreenVideo');
+            
+            // Pause video if it's playing
+            if (video.style.display === 'block') {
+                video.pause();
+            }
+            
+            modal.classList.remove('active');
+            
+            // Restore body scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close fullscreen on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
+
         // Check if user was previously logged in
         window.addEventListener('load', function() {
             const savedUser = localStorage.getItem('currentUser');
@@ -2739,5 +2886,5 @@
             init();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98651661612a0645',t:'MTc1OTA4MTg3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9865342e172dba5f',t:'MTc1OTA4MzA5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
